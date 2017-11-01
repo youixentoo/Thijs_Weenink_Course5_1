@@ -14,7 +14,7 @@ import java.util.List;
  * Translations, transcriptions, nucleotide analysis, protein analysis, protein codes conversion, linebreak removal.
  * 
  * @author Thijs Weenink
- * @version 1.0
+ * @version 1.2
  */
 public class AminoUtils {
     

@@ -10,9 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 
-/**
+/** The main GUI for simple nucleotide fasta analysis
  *
- * @author thijs
+ * @author Thijs Weenink
+ * @version 1.0
  */
 public class EindopdrachtGUI extends javax.swing.JFrame {
 
@@ -37,6 +38,8 @@ public class EindopdrachtGUI extends javax.swing.JFrame {
         inputTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        headerField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openFileMenu = new javax.swing.JMenuItem();
@@ -54,6 +57,9 @@ public class EindopdrachtGUI extends javax.swing.JFrame {
         jLabel1.setText("Input:");
 
         errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Header:");
 
         jMenu1.setText("File");
 
@@ -88,21 +94,29 @@ public class EindopdrachtGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(headerField)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(headerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,12 +130,21 @@ public class EindopdrachtGUI extends javax.swing.JFrame {
             try {
                 // What to do with the file, e.g. display it in a TextArea
                 inputTextArea.read( new FileReader( file.getAbsolutePath() ), null );
+                
+                //Displaying the header in the textField
+                String text = inputTextArea.getText();
+                for(String line:text.split("\n")){
+                    if(line.startsWith(">")){
+                        headerField.setText(line);
+                    }
+                } 
             } catch (IOException ex) {
                 System.out.println("problem accessing file"+file.getAbsolutePath());
             }
         } else {
             System.out.println("File access cancelled by user.");
         }
+               
     }//GEN-LAST:event_openFileMenuActionPerformed
 
     private void nuclPercentagesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuclPercentagesMenuActionPerformed
@@ -206,8 +229,10 @@ public class EindopdrachtGUI extends javax.swing.JFrame {
     private javax.swing.JMenu analyseMenu;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JTextField headerField;
     private javax.swing.JTextArea inputTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;

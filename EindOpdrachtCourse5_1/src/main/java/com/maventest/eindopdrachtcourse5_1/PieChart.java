@@ -2,8 +2,6 @@ package com.maventest.eindopdrachtcourse5_1;
 
 
 import java.awt.BorderLayout;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -13,12 +11,15 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-
+/** Pop-up frame with a PieChart from JFreeChart
+ *
+ * @author Thijs Weenink
+ * @version 1.0
+ */
 public class PieChart extends JFrame {
     
     private PieChart() {
         /*
-        Pop-up frame with the PieChart from JFreeChart
         All the variables are declared and assigned outside this method
         */
         PieDataset dataset = createDataset();
@@ -37,6 +38,7 @@ public class PieChart extends JFrame {
         The title gets used to display the length of the sequence
         */
         JFreeChart chart = ChartFactory.createPieChart("Total length of sequence is: "+totalLength, dataset);
+        
         return new ChartPanel(chart);
     }
     
